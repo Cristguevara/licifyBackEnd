@@ -1,6 +1,7 @@
 const { response } = require('express');
 const Project = require('../models/project');
 const {saveCloudinaryImage} = require('../helpers/cloudinary')
+const Application = require('../models/application')
 
 
 const allProjects = async(req, res = response ) => {
@@ -103,6 +104,7 @@ const deleteProject = async(req, res = response ) => {
   try {
     const { id } = req.body
     const projects = await Project.findByIdAndDelete(id)
+    await Application.deleteMany({proyectId:id})
 
     return res.status(200).json({
         ok: true
