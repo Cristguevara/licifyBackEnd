@@ -9,15 +9,16 @@ const validarJWT = ( req, res = response, next ) => {
     if( !token  ) {
         return res.status(401).json({
             ok: false,
-            msg: 'error en el token'
+            msg: 'Error en el token'
         });
     }
 
     try {
 
-        const { uid, email } = jwt.verify( token, process.env.SECRET_JWT_SEED );
+        const { uid, email, builder } = jwt.verify( token, process.env.SECRET_JWT_SEED );
         req.uid  = uid;
         req.email = email;
+        req.builder = builder;
 
         
     } catch (error) {
@@ -26,9 +27,6 @@ const validarJWT = ( req, res = response, next ) => {
             msg: 'Token no válido'
         });
     }
-
-
-
     // TODO OK!
     next();
 }

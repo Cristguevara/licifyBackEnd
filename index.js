@@ -1,19 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-const { dbConnection, conn } = require('./db/config');
+const { connectDB } = require('./db/config');
 require('dotenv').config();
 
 // Crear el servidor/aplicación de express
 const app = express();
 
 // Base de datos
-dbConnection.connect(function(err) {
-    if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-    }
-    console.log('DB conected');
-});;
+connectDB()
 
 
 // Directorio Público
@@ -28,6 +22,7 @@ app.use( express.json() );
 
 // Rutas
 app.use( '/api/auth', require('./routes/auth') );
+app.use( '/api/projects', require('./routes/projects') );
 
 
 app.listen( process.env.PORT, () => {

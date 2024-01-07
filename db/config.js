@@ -1,12 +1,15 @@
-const mysql      = require('mysql');
+const mongoose = require('mongoose');
 
-var dbConnection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : '',
-    database : 'prueba1'
-  });
+
+const connectDB = async () => {
+  try{
+      const db = await mongoose.connect(process.env.BD_CNN, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true})
+      console.log('DB connected')
+  }catch (err){
+      console.log('Error mongo: ',err)
+  }
+}
 
 module.exports = {
-    dbConnection
+  connectDB
 }

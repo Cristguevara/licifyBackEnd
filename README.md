@@ -1,3 +1,3 @@
 # Notas
 
-Backend con autenticación de JWT y MYSQL 
+Backend con autenticación de JWT y MongoDB 
